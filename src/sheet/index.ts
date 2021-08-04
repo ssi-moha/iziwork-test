@@ -1,5 +1,5 @@
-import { GoogleSpreadsheet } from "google-spreadsheet";
-import creds from "./creds.json";
+import { GoogleSpreadsheet, GoogleSpreadsheetRow } from "google-spreadsheet";
+import getGoogleCreds from "./getGoogleCreds";
 
 /* Row Fields: {
     "Student Name": string;
@@ -12,23 +12,19 @@ import creds from "./creds.json";
 
 // google-spreadsheet docs: https://theoephraim.github.io/node-google-spreadsheet/#/
 
-async function extractSheetData(): Promise<void> {
+async function extractDatafromSheet(): Promise<GoogleSpreadsheetRow[]> {
   const doc = new GoogleSpreadsheet(
     "1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms"
   );
 
-  await doc.useServiceAccountAuth(creds);
+  await doc.useServiceAccountAuth(getGoogleCreds());
 
   await doc.loadInfo();
 
   const sheet = doc.sheetsByIndex[0];
   const rows = await sheet.getRows();
 
-  rows.forEach((row) => {
-    if (row["Class Level"] === "1. Freshman") {
-      console.log(row["Student Name"]);
-    }
-  });
+  return rows;
 }
 
-export default extractSheetData;
+export default extractDatafromSheet;

@@ -1,14 +1,18 @@
-import api from "./api";
-import config from "./config";
-import extractSheetData from "./sheet";
+import { createTodo } from "./api/post/todos";
+import setupEnv from "./setupEnv";
+import extractDatafromSheet from "./sheet";
+import { isFreshman } from "./utils";
 
-config();
+setupEnv();
 
-async function fetchTodos() {
-  const { data } = await api.get(process.env.API_URL);
-  return data;
+async function sendFreshmansToApi() {
+  const rows = await extractDatafromSheet();
+
+  rows.forEach((row) => {
+    if (isFreshman(row)) {
+      createTodo({ title: row["Student Name"], completed: false });
+    }
+  });
 }
 
-fetchTodos();
-
-extractSheetData();
+sendFreshmansToApi();
