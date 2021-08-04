@@ -5,8 +5,13 @@ import { Todo } from "./entities/Todo";
 export const CLASS_LEVEL = "Class Level";
 export const STUDENT_NAME = "Student Name";
 export const FRESHMAN = "1. Freshman";
+export const HOME_STATE = "Home State";
 
 export type EntityWithID<T> = T & { id: number };
+
+export const getHomeState = (
+  student: GoogleSpreadsheetRow
+): string | undefined => student[HOME_STATE];
 
 export const getStudentName = (
   student: GoogleSpreadsheetRow
