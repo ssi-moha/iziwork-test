@@ -4,9 +4,9 @@
 This repository is a script that aims to browse a Google sheet and send specific data from that sheet to an api provided by Iziwork.
 
 ### Stack
-[Typescript](https://www.typescriptlang.org/docs/) 
-[Node.js](https://nodejs.org/en/docs/) 
-[Google Spreadsheet](https://theoephraim.github.io/node-google-spreadsheet/) 
+- [Typescript](https://www.typescriptlang.org/docs/) 
+- [Node.js](https://nodejs.org/en/docs/) 
+- [Google Spreadsheet](https://theoephraim.github.io/node-google-spreadsheet/) 
 
 ## Setup the project
 
