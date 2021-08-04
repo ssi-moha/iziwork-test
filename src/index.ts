@@ -1,18 +1,17 @@
 import { createTodo } from "./api/post/todos";
 import setupEnv from "./setupEnv";
 import extractDatafromSheet from "./sheet";
-import { isFreshman } from "./utils";
+import { getTodoTitle, STUDENT_NAME } from "./utils";
 
 setupEnv();
 
-async function sendFreshmansToApi() {
-  const rows = await extractDatafromSheet();
+async function sendStudentsToApi() {
+  const students = await extractDatafromSheet();
 
-  rows.forEach((row) => {
-    if (isFreshman(row)) {
-      createTodo({ title: row["Student Name"], completed: false });
-    }
+  students.forEach((student) => {
+    if (student[STUDENT_NAME])
+      createTodo({ title: getTodoTitle(student), completed: false });
   });
 }
 
-sendFreshmansToApi();
+sendStudentsToApi();

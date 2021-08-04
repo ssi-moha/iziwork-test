@@ -2,20 +2,29 @@ import { AxiosResponse } from "axios";
 import { GoogleSpreadsheetRow } from "google-spreadsheet";
 import { Todo } from "./entities/Todo";
 
-const CLASS_LEVEL = "Class Level";
-const FRESHMAN = "1. Freshman";
+export const CLASS_LEVEL = "Class Level";
+export const STUDENT_NAME = "Student Name";
+export const FRESHMAN = "1. Freshman";
 
 export type EntityWithID<T> = T & { id: number };
 
-export const getClassLevel = (row: GoogleSpreadsheetRow): string | undefined =>
-  row[CLASS_LEVEL];
+export const getStudentName = (
+  student: GoogleSpreadsheetRow
+): string | undefined => student[STUDENT_NAME];
 
-export const isFreshman = (row: GoogleSpreadsheetRow): boolean =>
-  getClassLevel(row) === FRESHMAN;
+export const getClassLevel = (
+  student: GoogleSpreadsheetRow
+): string | undefined => student[CLASS_LEVEL];
+
+export const isFreshman = (student: GoogleSpreadsheetRow): boolean =>
+  getClassLevel(student) === FRESHMAN;
+
+export const getTodoTitle = (student: GoogleSpreadsheetRow) =>
+  `${isFreshman(student) ? "Accueillir" : "Réintégrer"} ${getStudentName(
+    student
+  )}`;
 
 export const logCreatedTodo = (response: AxiosResponse<Todo>) => {
   if (response.status === 201)
-    console.log(
-      `${response.data.title}'s data has been successfully created 🚀`
-    );
+    console.log(`"${response.data.title}" has been successfully created 🚀`);
 };

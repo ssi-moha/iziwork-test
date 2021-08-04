@@ -1,10 +1,10 @@
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import api from "..";
 
-export default function post<T = any, R = T>(
-  url: string,
-  data?: T,
-  config?: AxiosRequestConfig
-): Promise<AxiosResponse<R>> {
-  return api.post<T, AxiosResponse<R>>(url, data, config);
+export default function post<
+  RequestData = unknown,
+  ResponseData = RequestData,
+  R = AxiosResponse<ResponseData>
+>(url: string, data?: RequestData, config?: AxiosRequestConfig): Promise<R> {
+  return api.post<RequestData, R>(url, data, config);
 }
